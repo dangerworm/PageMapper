@@ -1,6 +1,6 @@
 ﻿namespace Sandbox
 {
-    partial class frmSandbox
+    partial class frmInterface
     {
         /// <summary>
         /// Required designer variable.
@@ -113,7 +113,7 @@
             this.txtName.Size = new System.Drawing.Size(279, 20);
             this.txtName.TabIndex = 7;
             // 
-            // frmSandbox
+            // frmInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -127,8 +127,8 @@
             this.Controls.Add(this.lblURL);
             this.Controls.Add(this.txtBaseURL);
             this.Controls.Add(this.btnGenerateMap);
-            this.Name = "frmSandbox";
-            this.Text = "Sandbox";
+            this.Name = "frmInterface";
+            this.Text = "Interface";
             this.ResumeLayout(false);
             this.PerformLayout();
 

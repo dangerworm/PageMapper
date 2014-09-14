@@ -13,9 +13,9 @@ using PageMapper;
 
 namespace Sandbox
 {
-    public partial class frmSandbox : Form
+    public partial class frmInterface : Form
     {
-        public frmSandbox()
+        public frmInterface()
         {
             InitializeComponent();
         }
