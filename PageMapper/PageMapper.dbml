@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="PageMapper" Class="PageMapperDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=chomsky\sqlexpress;Initial Catalog=PageMapper;Persist Security Info=True;User ID=sa" SettingsObjectName="PageMapper.Properties.Settings" SettingsPropertyName="PageMapperConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Nodes" Member="Nodes">
+    <Type Name="Node">
+      <Column Name="PageMapID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="NodeIndex" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="NodeName" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="NodeID" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="NodeClass" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Association Name="PageMap_Node" Member="PageMap" ThisKey="PageMapID" OtherKey="PageMapID" Type="PageMap" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PageMaps" Member="PageMaps">
+    <Type Name="PageMap">
+      <Column Name="PageMapID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="BaseURL" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="PageMap_Node" Member="Nodes" ThisKey="PageMapID" OtherKey="PageMapID" Type="Node" />
+    </Type>
+  </Table>
+</Database>

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="PageMapper">
+  <DataContextMoniker Name="/PageMapperDataContext" />
+  <nestedChildShapes>
+    <classShape Id="7fddd299-3306-40e0-9437-f9bb10b41294" absoluteBounds="3.125, 0.5, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/PageMapperDataContext/Node" />
+      <nestedChildShapes>
+        <elementListCompartment Id="3e736bfd-e532-4dfe-81ba-a15dc859396d" absoluteBounds="3.14, 0.96, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="9e15347f-d02c-4659-a4ed-d05b08b9442a" absoluteBounds="0.5, 0.5, 2, 1.3862939453125">
+      <DataClassMoniker Name="/PageMapperDataContext/PageMap" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ab0e9d46-31b5-4e4d-ba72-330c4a1c51a6" absoluteBounds="0.51500000000000012, 0.96, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.5 : 1.30323003186678); (3.125 : 1.30323003186678)]" fixedFrom="Caller" fixedTo="Algorithm">
+      <AssociationMoniker Name="/PageMapperDataContext/PageMap/PageMap_Node" />
+      <nodes>
+        <classShapeMoniker Id="9e15347f-d02c-4659-a4ed-d05b08b9442a" />
+        <classShapeMoniker Id="7fddd299-3306-40e0-9437-f9bb10b41294" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>
