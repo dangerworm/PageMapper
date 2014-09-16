@@ -36,8 +36,8 @@
             this.lblQuery = new System.Windows.Forms.Label();
             this.txtQuery = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
-            this.txtName = new System.Windows.Forms.TextBox();
             this.btnTest = new System.Windows.Forms.Button();
+            this.cmbName = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // btnGenerateMap
@@ -107,13 +107,6 @@
             this.lblName.TabIndex = 8;
             this.lblName.Text = "Name:";
             // 
-            // txtName
-            // 
-            this.txtName.Location = new System.Drawing.Point(104, 12);
-            this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(280, 20);
-            this.txtName.TabIndex = 0;
-            // 
             // btnTest
             // 
             this.btnTest.Location = new System.Drawing.Point(311, 116);
@@ -124,14 +117,23 @@
             this.btnTest.UseVisualStyleBackColor = true;
             this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
             // 
+            // cmbName
+            // 
+            this.cmbName.FormattingEnabled = true;
+            this.cmbName.Location = new System.Drawing.Point(104, 11);
+            this.cmbName.Name = "cmbName";
+            this.cmbName.Size = new System.Drawing.Size(280, 21);
+            this.cmbName.TabIndex = 10;
+            this.cmbName.TextChanged += new System.EventHandler(this.cmbName_TextChanged);
+            // 
             // frmInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(396, 152);
+            this.Controls.Add(this.cmbName);
             this.Controls.Add(this.btnTest);
             this.Controls.Add(this.lblName);
-            this.Controls.Add(this.txtName);
             this.Controls.Add(this.lblQuery);
             this.Controls.Add(this.txtQuery);
             this.Controls.Add(this.label1);
@@ -141,6 +143,7 @@
             this.Controls.Add(this.btnGenerateMap);
             this.Name = "frmInterface";
             this.Text = "Interface";
+            this.Load += new System.EventHandler(this.frmInterface_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -156,8 +159,8 @@
         private System.Windows.Forms.Label lblQuery;
         private System.Windows.Forms.TextBox txtQuery;
         private System.Windows.Forms.Label lblName;
-        private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Button btnTest;
+        private System.Windows.Forms.ComboBox cmbName;
     }
 }
 

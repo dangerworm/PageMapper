@@ -15,9 +15,20 @@ namespace Sandbox
 {
     public partial class frmInterface : Form
     {
+        List<PageMap> existingMaps = new List<PageMap>();
+
         public frmInterface()
         {
             InitializeComponent();
+        }
+
+        private void frmInterface_Load(object sender, EventArgs e)
+        {
+            existingMaps = new PageMapperDataContext().PageMaps.OrderBy(pm => pm.Name).ToList();
+            foreach (PageMap map in existingMaps)
+            {
+                cmbName.Items.Add(map.Name);
+            }
         }
 
         private void btnGenerateMap_Click(object sender, EventArgs e)
@@ -38,7 +49,7 @@ namespace Sandbox
                 DialogResult result = MessageBox.Show(pageMap.GetText(), "Is this what you want?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    pageMap.SaveToDatabase(txtName.Text);
+                    pageMap.SaveToDatabase(cmbName.Text);
                 }
             }
             catch (Exception error)
@@ -49,8 +60,13 @@ namespace Sandbox
 
         private void btnTest_Click(object sender, EventArgs e)
         {
-            PageMap map = Mapper.RetrieveMapFromDatabase(txtName.Text);
+            PageMap map = Mapper.RetrieveMapFromDatabase(cmbName.Text);
             
+            if (txtQuery.Text == "")
+            {
+                txtQuery.Text = "Query";
+            }
+
             HtmlWeb Browser = new HtmlWeb();
             var Document = Browser.Load(map.BaseURL + txtQuery.Text);
             
@@ -60,6 +76,14 @@ namespace Sandbox
             foreach (string bit in bits)
                 bitString += bit + Environment.NewLine;
             MessageBox.Show(bitString);
+        }
+
+        private void cmbName_TextChanged(object sender, EventArgs e)
+        {
+            if (existingMaps.Any(em => em.Name == cmbName.Text))
+            {
+                txtBaseURL.Text = existingMaps.Single(em => em.Name == cmbName.Text).BaseURL;
+            }
         }
     }
 }
