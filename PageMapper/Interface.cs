@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using HtmlAgilityPack;
-using PageMapper;
+using RITCHARD_Data;
 
 namespace Sandbox
 {
@@ -28,23 +28,38 @@ namespace Sandbox
 
                 if (txtTargetCode.Text.StartsWith("<"))
                 {
-                    pageMap = Mapper.GenerateMapFromCodeTarget(txtName.Text, txtBaseURL.Text.Trim(), txtQuery.Text.Trim(), txtTargetCode.Text.Trim());
+                    pageMap = Mapper.GenerateMapFromCodeTarget(txtBaseURL.Text.Trim(), txtQuery.Text.Trim(), txtTargetCode.Text.Trim());
                 }
                 else
                 {
-                    pageMap = Mapper.GenerateMapFromCodeTarget(txtName.Text, txtBaseURL.Text.Trim(), txtQuery.Text.Trim(), txtTargetCode.Text.Trim());
+                    pageMap = Mapper.GenerateMapFromTextTarget(txtBaseURL.Text.Trim(), txtQuery.Text.Trim(), txtTargetCode.Text.Trim());
                 }
 
                 DialogResult result = MessageBox.Show(pageMap.GetText(), "Is this what you want?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    pageMap.SaveToDatabase();
+                    pageMap.SaveToDatabase(txtName.Text);
                 }
             }
             catch (Exception error)
             {
                 MessageBox.Show(error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void btnTest_Click(object sender, EventArgs e)
+        {
+            PageMap map = Mapper.RetrieveMapFromDatabase(txtName.Text);
+            
+            HtmlWeb Browser = new HtmlWeb();
+            var Document = Browser.Load(map.BaseURL + txtQuery.Text);
+            
+            List<string> bits = Mapper.GetRelevantTextFromDocumentUsingMap(Document, map);
+            
+            string bitString = "";
+            foreach (string bit in bits)
+                bitString += bit + Environment.NewLine;
+            MessageBox.Show(bitString);
         }
     }
 }

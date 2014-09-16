@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using HtmlAgilityPack;
 
-namespace PageMapper
+namespace RITCHARD_Data
 {
     public class Map
     {
@@ -14,23 +14,11 @@ namespace PageMapper
 
         private List<HtmlNode> _nodeMap;
         private string _baseUrl;
-        private string _name;
+        private int _maxIndex;
 
         public Map(string baseUrl)
         {
             _db = new PageMapperDataContext();
-
-            int secondSlash = baseUrl.IndexOf("/") + 1;
-            string domain = baseUrl.Substring(secondSlash + 1);
-            _name = domain.Substring(0, domain.IndexOf("/"));
-
-            _baseUrl = baseUrl;
-        }
-
-        public Map(string name, string baseUrl)
-        {
-            _db = new PageMapperDataContext();
-            _name = name;
             _baseUrl = baseUrl;
         }
 
@@ -69,30 +57,40 @@ namespace PageMapper
                     trimmedText += lump + " ";
             }
 
-            return trimmedText;
+            return trimmedText.Trim();
         }
 
-        public void SaveToDatabase()
+        public void SaveToDatabase(string name)
         {
             PageMap pm;
 
-            if (!_db.PageMaps.Any(m => m.Name == _name && m.BaseURL == _baseUrl))
+            if (string.IsNullOrEmpty(name))
+            {
+                int secondSlash = _baseUrl.IndexOf("/") + 1;
+                string domain = _baseUrl.Substring(secondSlash + 1);
+                name = domain.Substring(0, domain.IndexOf("/"));
+            }
+
+
+            if (!_db.PageMaps.Any(m => m.Name == name && m.BaseURL == _baseUrl))
             {
                 pm = new PageMap();
                 pm.PageMapID = Guid.NewGuid();
-                pm.Name = _name;
+                pm.Name = name;
                 pm.BaseURL = _baseUrl;
                 _db.PageMaps.InsertOnSubmit(pm);
             }
             else
             {
-                pm = _db.PageMaps.Single(m => m.Name == _name && m.BaseURL == _baseUrl);
+                pm = _db.PageMaps.Single(m => m.Name == name && m.BaseURL == _baseUrl);
                 _db.Nodes.DeleteAllOnSubmit(_db.Nodes.Where(n => n.PageMapID == pm.PageMapID));
             }
 
-            int index = 0;
+            int index = -1;
             foreach (var node in _nodeMap)
             {
+                index++;
+
                 Node newNode = new Node();
                 newNode.PageMapID = pm.PageMapID;
                 newNode.NodeIndex = index;
@@ -104,16 +102,10 @@ namespace PageMapper
                 }
 
                 _db.Nodes.InsertOnSubmit(newNode);
-
-                index++;
             }
 
+            _maxIndex = pm.MaxIndex = index;
             _db.SubmitChanges();
-        }
-
-        public void SetName(string name)
-        {
-            _name = name;
         }
 
         public void SetNextNode(HtmlNode nextNode)

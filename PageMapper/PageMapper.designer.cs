@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PageMapper
+namespace RITCHARD_Data
 {
 	using System.Data.Linq;
 	using System.Data.Linq.Mapping;
@@ -39,7 +39,7 @@ namespace PageMapper
     #endregion
 		
 		public PageMapperDataContext() : 
-				base(global::PageMapper.Properties.Settings.Default.PageMapperConnectionString, mappingSource)
+				base(global::RITCHARD_Data.Properties.Settings.Default.PageMapperConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -296,6 +296,8 @@ namespace PageMapper
 		
 		private string _BaseURL;
 		
+		private int _MaxIndex;
+		
 		private EntitySet<Node> _Nodes;
 		
     #region Extensibility Method Definitions
@@ -308,6 +310,8 @@ namespace PageMapper
     partial void OnNameChanged();
     partial void OnBaseURLChanging(string value);
     partial void OnBaseURLChanged();
+    partial void OnMaxIndexChanging(int value);
+    partial void OnMaxIndexChanged();
     #endregion
 		
 		public PageMap()
@@ -372,6 +376,26 @@ namespace PageMapper
 					this._BaseURL = value;
 					this.SendPropertyChanged("BaseURL");
 					this.OnBaseURLChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaxIndex", DbType="Int NOT NULL")]
+		public int MaxIndex
+		{
+			get
+			{
+				return this._MaxIndex;
+			}
+			set
+			{
+				if ((this._MaxIndex != value))
+				{
+					this.OnMaxIndexChanging(value);
+					this.SendPropertyChanging();
+					this._MaxIndex = value;
+					this.SendPropertyChanged("MaxIndex");
+					this.OnMaxIndexChanged();
 				}
 			}
 		}

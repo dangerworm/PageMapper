@@ -37,11 +37,12 @@
             this.txtQuery = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
+            this.btnTest = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnGenerateMap
             // 
-            this.btnGenerateMap.Location = new System.Drawing.Point(267, 116);
+            this.btnGenerateMap.Location = new System.Drawing.Point(189, 117);
             this.btnGenerateMap.Name = "btnGenerateMap";
             this.btnGenerateMap.Size = new System.Drawing.Size(116, 23);
             this.btnGenerateMap.TabIndex = 4;
@@ -53,7 +54,7 @@
             // 
             this.txtBaseURL.Location = new System.Drawing.Point(104, 38);
             this.txtBaseURL.Name = "txtBaseURL";
-            this.txtBaseURL.Size = new System.Drawing.Size(279, 20);
+            this.txtBaseURL.Size = new System.Drawing.Size(280, 20);
             this.txtBaseURL.TabIndex = 1;
             // 
             // lblURL
@@ -78,7 +79,7 @@
             // 
             this.txtTargetCode.Location = new System.Drawing.Point(104, 90);
             this.txtTargetCode.Name = "txtTargetCode";
-            this.txtTargetCode.Size = new System.Drawing.Size(279, 20);
+            this.txtTargetCode.Size = new System.Drawing.Size(280, 20);
             this.txtTargetCode.TabIndex = 3;
             // 
             // lblQuery
@@ -94,7 +95,7 @@
             // 
             this.txtQuery.Location = new System.Drawing.Point(104, 64);
             this.txtQuery.Name = "txtQuery";
-            this.txtQuery.Size = new System.Drawing.Size(279, 20);
+            this.txtQuery.Size = new System.Drawing.Size(280, 20);
             this.txtQuery.TabIndex = 2;
             // 
             // lblName
@@ -110,14 +111,25 @@
             // 
             this.txtName.Location = new System.Drawing.Point(104, 12);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(279, 20);
+            this.txtName.Size = new System.Drawing.Size(280, 20);
             this.txtName.TabIndex = 0;
+            // 
+            // btnTest
+            // 
+            this.btnTest.Location = new System.Drawing.Point(311, 116);
+            this.btnTest.Name = "btnTest";
+            this.btnTest.Size = new System.Drawing.Size(73, 24);
+            this.btnTest.TabIndex = 9;
+            this.btnTest.Text = "Test";
+            this.btnTest.UseVisualStyleBackColor = true;
+            this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
             // 
             // frmInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(396, 152);
+            this.Controls.Add(this.btnTest);
             this.Controls.Add(this.lblName);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.lblQuery);
@@ -145,6 +157,7 @@
         private System.Windows.Forms.TextBox txtQuery;
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.TextBox txtName;
+        private System.Windows.Forms.Button btnTest;
     }
 }
 
