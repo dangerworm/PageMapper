@@ -44,7 +44,7 @@
             this.btnGenerateMap.Location = new System.Drawing.Point(267, 116);
             this.btnGenerateMap.Name = "btnGenerateMap";
             this.btnGenerateMap.Size = new System.Drawing.Size(116, 23);
-            this.btnGenerateMap.TabIndex = 0;
+            this.btnGenerateMap.TabIndex = 4;
             this.btnGenerateMap.Text = "Generate PageMap";
             this.btnGenerateMap.UseVisualStyleBackColor = true;
             this.btnGenerateMap.Click += new System.EventHandler(this.btnGenerateMap_Click);
@@ -70,9 +70,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 93);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(69, 13);
+            this.label1.Size = new System.Drawing.Size(41, 13);
             this.label1.TabIndex = 4;
-            this.label1.Text = "Target Code:";
+            this.label1.Text = "Target:";
             // 
             // txtTargetCode
             // 
@@ -95,7 +95,7 @@
             this.txtQuery.Location = new System.Drawing.Point(104, 64);
             this.txtQuery.Name = "txtQuery";
             this.txtQuery.Size = new System.Drawing.Size(279, 20);
-            this.txtQuery.TabIndex = 5;
+            this.txtQuery.TabIndex = 2;
             // 
             // lblName
             // 
@@ -111,7 +111,7 @@
             this.txtName.Location = new System.Drawing.Point(104, 12);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(279, 20);
-            this.txtName.TabIndex = 7;
+            this.txtName.TabIndex = 0;
             // 
             // frmInterface
             // 

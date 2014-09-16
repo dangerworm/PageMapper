@@ -24,7 +24,16 @@ namespace Sandbox
         {
             try
             {
-                Map pageMap = Mapper.GenerateMap(txtName.Text, txtBaseURL.Text.Trim(), txtQuery.Text.Trim(), txtTargetCode.Text.Trim());
+                Map pageMap;
+
+                if (txtTargetCode.Text.StartsWith("<"))
+                {
+                    pageMap = Mapper.GenerateMapFromCodeTarget(txtName.Text, txtBaseURL.Text.Trim(), txtQuery.Text.Trim(), txtTargetCode.Text.Trim());
+                }
+                else
+                {
+                    pageMap = Mapper.GenerateMapFromCodeTarget(txtName.Text, txtBaseURL.Text.Trim(), txtQuery.Text.Trim(), txtTargetCode.Text.Trim());
+                }
 
                 DialogResult result = MessageBox.Show(pageMap.GetText(), "Is this what you want?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)

@@ -16,16 +16,16 @@ namespace PageMapper
         private static HtmlWeb Browser;
         public static HtmlAgilityPack.HtmlDocument Document;
 
-        public static Map GenerateMap(string name, string baseUrl, string query, string targetCode)
+        private static Map GenerateMap(string name, string baseUrl, string query, string target, bool isCode)
         {
-            if (baseUrl == "" || targetCode == "")
+            if (baseUrl == "" || target == "")
             {
-                throw new Exception("Please enter a URL and target code to search for.");
+                throw new Exception("Must enter a URL and target code to search for.");
             }
             else
             {
                 // Strange as it looks, this actually changes " to \" in the HTML
-                targetCode = targetCode.Replace("\"", "\"");
+                target = target.Replace("\"", "\"");
 
                 Map map = new Map(name, baseUrl);
 
@@ -35,31 +35,69 @@ namespace PageMapper
                 HtmlNode searchNode = Document.DocumentNode.SelectSingleNode("//html/body");
                 map.SetNextNode(searchNode);
 
-                while (searchNode.InnerHtml.Contains(targetCode))
+                if (isCode)
                 {
-                    bool canGoDeeper = false;
-
-                    foreach (var child in searchNode.ChildNodes)
+                    while (searchNode.InnerHtml.Contains(target))
                     {
-                        if (child.InnerHtml.Contains(targetCode))
+                        bool canGoDeeper = false;
+
+                        foreach (var child in searchNode.ChildNodes)
                         {
-                            searchNode = child;
-                            canGoDeeper = true;
+                            if (child.InnerHtml.Contains(target))
+                            {
+                                searchNode = child;
+                                canGoDeeper = true;
 
-                            map.SetNextNode(child);
+                                map.SetNextNode(child);
 
+                                break;
+                            }
+                        }
+
+                        if (!canGoDeeper)
+                        {
                             break;
                         }
                     }
-
-                    if (!canGoDeeper)
+                }
+                else
+                {
+                    while (searchNode.InnerText.Contains(target))
                     {
-                        break;
+                        bool canGoDeeper = false;
+
+                        foreach (var child in searchNode.ChildNodes)
+                        {
+                            if (child.InnerText.Contains(target))
+                            {
+                                searchNode = child;
+                                canGoDeeper = true;
+
+                                map.SetNextNode(child);
+
+                                break;
+                            }
+                        }
+
+                        if (!canGoDeeper)
+                        {
+                            break;
+                        }
                     }
                 }
 
                 return map;
             }
+        }
+
+        public static Map GenerateMapFromCodeTarget(string name, string baseUrl, string query, string targetCode)
+        {
+            return GenerateMap(name, baseUrl, query, targetCode, true);
+        }
+
+        public static Map GenerateMapFromTextTarget(string name, string baseUrl, string query, string targetText)
+        {
+            return GenerateMap(name, baseUrl, query, targetText, false);
         }
     }
 }
