@@ -97,7 +97,7 @@ namespace RITCHARD_Data
         {
             if (targetCode.StartsWith("<span"))
             {
-                throw new Exception("Cannot detect <span>s within pages. Please use a tag from higher up within the DOM.");
+                //throw new Exception("Cannot detect <span>s within pages. Please use a tag from higher up within the DOM.");
             }
 
             return GenerateMap(baseUrl, query, targetCode, true);
@@ -116,29 +116,19 @@ namespace RITCHARD_Data
 
             foreach (Node mapNode in map.Nodes.OrderBy(n => n.NodeIndex))
             {
-                if (mapNode.NodeIndex == map.MaxIndex)
+                // If we're at the start of the map, find where to go next
+                if (mapNode.NodeIndex < map.MaxIndex)
                 {
-                    foreach (HtmlNode node in documentNode.ChildNodes.Where(n => n.Name == mapNode.NodeName && n.Id == mapNode.NodeID))
-                    {
-                        foreach (HtmlAttribute a in node.Attributes.AttributesWithName("class"))
-                        {
-                            string className = map.Nodes.Single(n => n.NodeIndex == map.MaxIndex).NodeClass;
-                            if (a.Value == className)
-                            {
-                                textItems.Add(node.InnerText.Trim());
-                            }
-                        }
-                    }
-                }
-                else
-                {
+                    // Find out which child nodes have the right name and ID.
                     documentNodesOfInterest = documentNode.ChildNodes.Where(n => n.Name == mapNode.NodeName && n.Id == mapNode.NodeID).ToList();
 
+                    // If there's only 1, use that.
                     if (documentNodesOfInterest.Count == 1)
                     {
                         documentNode = documentNodesOfInterest.First();
                         continue;
                     }
+                    // If there are more, find out which ones have the right class
                     else
                     {
                         foreach (HtmlNode docNode in documentNodesOfInterest)
@@ -154,6 +144,48 @@ namespace RITCHARD_Data
                             if (documentNode == docNode)
                             {
                                 break;
+                            }
+                        }
+
+                        // If none had the right class, they won't have been put in documentNode
+                        if (!documentNodesOfInterest.Contains(documentNode))
+                        {
+                            // Most often it's because it was list-item. Loop through from here,
+                            // see what we get and don't bother going deeper.
+
+                            foreach (HtmlNode node in documentNodesOfInterest.Where(n => n.Name == mapNode.NodeName && n.Id == mapNode.NodeID))
+                            {
+                                {
+                                    textItems.Add(node.InnerText.Trim());
+                                }
+                            }
+
+                            break;
+                        }
+                    }
+                }
+                // If we're at the end of the map, start delving into the text
+                else 
+                {
+                    foreach (HtmlNode node in documentNode.ChildNodes.Where(n => n.Name == mapNode.NodeName && n.Id == mapNode.NodeID))
+                    {
+                        // Without class information, the next bit is useless. Grab any old text.
+                        if (mapNode.NodeClass == null)
+                        {
+                            {
+                                textItems.Add(node.InnerText.Trim());
+                            }
+                        }
+                        else
+                        {
+                            // If we have class information, only pull the matching ones.
+                            foreach (HtmlAttribute a in node.Attributes.AttributesWithName("class"))
+                            {
+                                string className = map.Nodes.Single(n => n.NodeIndex == map.MaxIndex).NodeClass;
+                                if (a.Value == className)
+                                {
+                                    textItems.Add(node.InnerText.Trim());
+                                }
                             }
                         }
                     }
