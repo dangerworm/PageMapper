@@ -38,13 +38,14 @@
             this.lblName = new System.Windows.Forms.Label();
             this.btnTest = new System.Windows.Forms.Button();
             this.cmbName = new System.Windows.Forms.ComboBox();
+            this.btnCopyURL = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnGenerateMap
             // 
-            this.btnGenerateMap.Location = new System.Drawing.Point(189, 117);
+            this.btnGenerateMap.Location = new System.Drawing.Point(204, 116);
             this.btnGenerateMap.Name = "btnGenerateMap";
-            this.btnGenerateMap.Size = new System.Drawing.Size(116, 23);
+            this.btnGenerateMap.Size = new System.Drawing.Size(122, 23);
             this.btnGenerateMap.TabIndex = 4;
             this.btnGenerateMap.Text = "Generate PageMap";
             this.btnGenerateMap.UseVisualStyleBackColor = true;
@@ -109,9 +110,9 @@
             // 
             // btnTest
             // 
-            this.btnTest.Location = new System.Drawing.Point(311, 116);
+            this.btnTest.Location = new System.Drawing.Point(332, 116);
             this.btnTest.Name = "btnTest";
-            this.btnTest.Size = new System.Drawing.Size(73, 24);
+            this.btnTest.Size = new System.Drawing.Size(52, 23);
             this.btnTest.TabIndex = 9;
             this.btnTest.Text = "Test";
             this.btnTest.UseVisualStyleBackColor = true;
@@ -126,11 +127,22 @@
             this.cmbName.TabIndex = 10;
             this.cmbName.TextChanged += new System.EventHandler(this.cmbName_TextChanged);
             // 
+            // btnCopyURL
+            // 
+            this.btnCopyURL.Location = new System.Drawing.Point(104, 116);
+            this.btnCopyURL.Name = "btnCopyURL";
+            this.btnCopyURL.Size = new System.Drawing.Size(94, 23);
+            this.btnCopyURL.TabIndex = 11;
+            this.btnCopyURL.Text = "Copy Full URL";
+            this.btnCopyURL.UseVisualStyleBackColor = true;
+            this.btnCopyURL.Click += new System.EventHandler(this.btnCopyURL_Click);
+            // 
             // frmInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(396, 152);
+            this.ClientSize = new System.Drawing.Size(396, 150);
+            this.Controls.Add(this.btnCopyURL);
             this.Controls.Add(this.cmbName);
             this.Controls.Add(this.btnTest);
             this.Controls.Add(this.lblName);
@@ -161,6 +173,7 @@
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.Button btnTest;
         private System.Windows.Forms.ComboBox cmbName;
+        private System.Windows.Forms.Button btnCopyURL;
     }
 }
 

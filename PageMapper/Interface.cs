@@ -31,6 +31,11 @@ namespace Sandbox
             }
         }
 
+        private void btnCopyURL_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(txtBaseURL.Text.Trim() + txtQuery.Text.Trim());
+        }
+
         private void btnGenerateMap_Click(object sender, EventArgs e)
         {
             try

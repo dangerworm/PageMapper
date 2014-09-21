@@ -108,7 +108,7 @@ namespace RITCHARD_Data
             return GenerateMap(baseUrl, query, targetText, false);
         }
 
-        public static List<string> GetRelevantTextFromDocumentUsingMap(HtmlDocument document, PageMap map) 
+        public static List<string> GetRelevantTextFromDocumentUsingMap(HtmlDocument document, PageMap map)
         {
             HtmlNode documentNode = document.DocumentNode.SelectSingleNode("//html");
             List<HtmlNode> documentNodesOfInterest = new List<HtmlNode>();
@@ -150,22 +150,36 @@ namespace RITCHARD_Data
                         // If none had the right class, they won't have been put in documentNode
                         if (!documentNodesOfInterest.Contains(documentNode))
                         {
-                            // Most often it's because it was list-item. Loop through from here,
-                            // see what we get and don't bother going deeper.
-
-                            foreach (HtmlNode node in documentNodesOfInterest.Where(n => n.Name == mapNode.NodeName && n.Id == mapNode.NodeID))
+                            // Try to match on the ID of a child node in the map
+                            foreach (HtmlNode docNode in documentNodesOfInterest)
                             {
+                                Node nextNode = map.Nodes.Where(n => n.NodeIndex > mapNode.NodeIndex && !string.IsNullOrEmpty(n.NodeID)).OrderBy(n => n.NodeIndex).FirstOrDefault();
+                                if (nextNode != null && docNode.InnerHtml.Contains(nextNode.NodeID))
                                 {
-                                    textItems.Add(node.InnerText.Trim());
+                                    documentNode = docNode;
+                                    break;
                                 }
                             }
 
-                            break;
+                            // If we still haven't found anything, it's usually because the
+                            // loop has hit a listitem. Loop through from here, see what we
+                            // get and don't bother going deeper.
+                            if (!documentNodesOfInterest.Contains(documentNode))
+                            {
+                                foreach (HtmlNode node in documentNodesOfInterest.Where(n => n.Name == mapNode.NodeName && n.Id == mapNode.NodeID))
+                                {
+                                    {
+                                        textItems.Add(node.InnerText.Trim());
+                                    }
+                                }
+
+                                break;
+                            }
                         }
                     }
                 }
                 // If we're at the end of the map, start delving into the text
-                else 
+                else
                 {
                     foreach (HtmlNode node in documentNode.ChildNodes.Where(n => n.Name == mapNode.NodeName && n.Id == mapNode.NodeID))
                     {
